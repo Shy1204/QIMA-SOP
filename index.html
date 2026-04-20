@@ -7,12 +7,11 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f5f4f0;padding:20px;color:#2C2C2A}
-.w{max-width:860px;margin:0 auto;padding:14px 0}
+.w{max-width:900px;margin:0 auto;padding:14px 0}
 h1{font-size:18px;font-weight:500;color:#2C2C2A;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid #D3D1C7}
 .nav{display:flex;gap:4px;margin-bottom:14px;flex-wrap:wrap}
-.pb{flex:1;min-width:80px;display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 4px;border-radius:8px;border:1px solid #D3D1C7;background:#F1EFE8;cursor:pointer;text-align:center;transition:border-color .15s,background .15s}
-.pb:hover{border-color:#B4B2A9}
-.pb.on{background:#fff;border-color:#888780}
+.pb{flex:1;min-width:74px;display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 4px;border-radius:8px;border:1px solid #D3D1C7;background:#F1EFE8;cursor:pointer;text-align:center;transition:border-color .15s,background .15s}
+.pb:hover{border-color:#B4B2A9}.pb.on{background:#fff;border-color:#888780}
 .pdot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
 .pn{font-size:10px;color:#888780}
 .pl{font-size:10px;font-weight:500;color:#2C2C2A;line-height:1.3;word-break:break-word;width:100%}
@@ -28,12 +27,10 @@ h1{font-size:18px;font-weight:500;color:#2C2C2A;margin-bottom:16px;padding-botto
 .flabel{font-size:12px;font-weight:500;color:#2C2C2A;line-height:1.4}
 .fsub{font-size:10px;color:#888780;margin-top:2px;line-height:1.3}
 .finfo{background:#E6F1FB;border:1px solid #85B7EB;border-radius:8px;padding:8px 12px;text-align:center;min-width:120px;max-width:200px}
-.finfo .frole{color:#0C447C;opacity:.8}
-.finfo .flabel{color:#0C447C}
-.finfo .fsub{color:#0C447C;opacity:.7}
+.finfo .frole{color:#0C447C;opacity:.8}.finfo .flabel{color:#0C447C}.finfo .fsub{color:#0C447C;opacity:.7}
 .farrow{width:2px;height:14px;background:#888780;margin:0 auto;position:relative;flex-shrink:0}
 .farrow::after{content:'';position:absolute;bottom:-6px;left:-5px;border-left:6px solid transparent;border-right:6px solid transparent;border-top:7px solid #888780}
-.fmile{background:#EAF3DE;border:1px solid #97C459;border-radius:20px;padding:7px 18px;text-align:center;max-width:300px}
+.fmile{background:#EAF3DE;border:1px solid #97C459;border-radius:20px;padding:7px 18px;text-align:center;max-width:320px}
 .fmile-txt{font-size:11px;font-weight:500;color:#27500A}
 .bot{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
 @media(max-width:600px){.bot{grid-template-columns:1fr}}
@@ -41,8 +38,7 @@ h1{font-size:18px;font-weight:500;color:#2C2C2A;margin-bottom:16px;padding-botto
 .bt{font-size:10px;font-weight:500;color:#5F5E5A;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px}
 .bsi{display:flex;flex-direction:column;gap:1px;padding-left:8px;border-left:2px solid #EF9F27;margin-bottom:7px}
 .bsi:last-of-type{margin-bottom:0}
-.bsm{font-size:12px;color:#2C2C2A}
-.bsv{font-size:11px;color:#BA7517;font-weight:500}
+.bsm{font-size:12px;color:#2C2C2A}.bsv{font-size:11px;color:#BA7517;font-weight:500}
 .bci{display:flex;align-items:flex-start;gap:7px;font-size:12px;color:#2C2C2A;margin-bottom:6px}
 .bci:last-child{margin-bottom:0}
 .bck{width:15px;height:15px;border-radius:3px;background:#EAF3DE;border:1px solid #97C459;color:#27500A;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;font-weight:500;margin-top:1px}
@@ -56,8 +52,8 @@ h1{font-size:18px;font-weight:500;color:#2C2C2A;margin-bottom:16px;padding-botto
 <div class="bot">
   <div class="bcard">
     <div class="bt">Key SLA timeline</div>
-    <div class="bsi"><div class="bsm">Kick-off email</div><div class="bsv">Day 0 · within 24h</div></div>
-    <div class="bsi"><div class="bsm">No response reminder</div><div class="bsv">+3 working days</div></div>
+    <div class="bsi"><div class="bsm">Kick-off email</div><div class="bsv">Day 0 · within 24h of booking</div></div>
+    <div class="bsi"><div class="bsm">Supplier reminders</div><div class="bsv">Every 3 working days · 4 days max</div></div>
     <div class="bsi"><div class="bsm">Stop allocation</div><div class="bsv">1 month before audit</div></div>
     <div class="bsi"><div class="bsm">Capacity escalation</div><div class="bsv">8+ weeks before due date</div></div>
     <div class="bsi"><div class="bsm">CAP turnaround</div><div class="bsv">Per client GI · ~30 days</div></div>
@@ -75,134 +71,141 @@ h1{font-size:18px;font-weight:500;color:#2C2C2A;margin-bottom:16px;padding-botto
 </div>
 <script>
 const A=()=>`<div class="farrow"></div>`;
-const B=(role,lbl,sub='',ac='')=>`<div class="fbox"${ac?` style="border-left:3px solid ${ac}"`:''} ><div class="frole">${role}</div><div class="flabel">${lbl}</div>${sub?`<div class="fsub">${sub}</div>`:''}</div>`;
-const N=(role,lbl,sub='')=>`<div class="finfo"><div class="frole">${role}</div><div class="flabel">${lbl}</div>${sub?`<div class="fsub">${sub}</div>`:''}</div>`;
+const B=(r,l,s='',ac='')=>`<div class="fbox"${ac?` style="border-left:3px solid ${ac}"`:''} ><div class="frole">${r}</div><div class="flabel">${l}</div>${s?`<div class="fsub">${s}</div>`:''}</div>`;
+const N=(r,l,s='')=>`<div class="finfo"><div class="frole">${r}</div><div class="flabel">${l}</div>${s?`<div class="fsub">${s}</div>`:''}</div>`;
 const M=l=>`<div class="fmile"><div class="fmile-txt">${l}</div></div>`;
-const D=l=>`<div style="position:relative;width:150px;height:52px;margin:2px auto;flex-shrink:0"><svg width="150" height="52" style="position:absolute;inset:0;overflow:visible"><polygon points="75,2 147,26 75,50 3,26" fill="none" stroke="#EF9F27" stroke-width="2"/></svg><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:#2C2C2A;padding:0 22px;text-align:center;line-height:1.3">${l}</div></div>`;
-const badge=lbl=>`<div style="font-size:11px;font-weight:500;color:#444441;text-align:center;margin-bottom:8px;padding:2px 10px;background:#D3D1C7;border-radius:20px;border:1px solid #B4B2A9">${lbl}</div>`;
+const D=l=>`<div style="position:relative;width:160px;height:52px;margin:2px auto;flex-shrink:0"><svg width="160" height="52" style="position:absolute;inset:0;overflow:visible"><polygon points="80,2 158,26 80,50 2,26" fill="none" stroke="#EF9F27" stroke-width="2"/></svg><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:#2C2C2A;padding:0 22px;text-align:center;line-height:1.3">${l}</div></div>`;
+const badge=l=>`<div style="font-size:11px;font-weight:500;color:#444441;text-align:center;margin-bottom:8px;padding:2px 10px;background:#D3D1C7;border-radius:20px;border:1px solid #B4B2A9">${l}</div>`;
 const BP=(l1,c1,l2,c2)=>`<div style="width:100%;border:1px solid #B4B2A9;border-radius:10px;padding:10px 8px 4px;background:#F1EFE8;margin:2px 0"><div style="display:flex;gap:0;align-items:flex-start"><div style="flex:1;border-right:1px dashed #B4B2A9;padding-right:6px;display:flex;flex-direction:column;align-items:center">${badge(l1)}${c1}</div><div style="flex:1;padding-left:6px;display:flex;flex-direction:column;align-items:center">${badge(l2)}${c2}</div></div></div>`;
+const BP3=(l1,c1,l2,c2,l3,c3)=>`<div style="width:100%;border:1px solid #B4B2A9;border-radius:10px;padding:10px 8px 4px;background:#F1EFE8;margin:2px 0"><div style="display:flex;gap:0;align-items:flex-start"><div style="flex:1;border-right:1px dashed #B4B2A9;padding-right:4px;display:flex;flex-direction:column;align-items:center">${badge(l1)}${c1}</div><div style="flex:1;border-right:1px dashed #B4B2A9;padding:0 4px;display:flex;flex-direction:column;align-items:center">${badge(l2)}${c2}</div><div style="flex:1;padding-left:4px;display:flex;flex-direction:column;align-items:center">${badge(l3)}${c3}</div></div></div>`;
 
-const ph1=`
-<div class="fbox" style="border-left:3px solid #185FA5"><div class="frole">Technical Team</div><div class="flabel">Check if GI exists in SSO</div></div>
-${A()}
-${D('GI exists?')}
-<div style="display:flex;width:100%;gap:8px;align-items:flex-start">
-  <div style="width:120px;flex-shrink:0;display:flex;flex-direction:column;align-items:center">
-    <div style="font-size:10px;color:#5F5E5A;font-weight:500;margin:4px 0">Yes</div>
-    <div class="fbox" style="width:100%"><div class="frole">All Teams</div><div class="flabel">Use existing GI in SSO</div></div>
-    ${A()}
-    <div style="background:#EAF3DE;border:1px solid #97C459;border-radius:16px;padding:6px 10px;text-align:center;width:100%"><div style="font-size:11px;font-weight:500;color:#27500A">Existing GI — proceed to booking</div></div>
-  </div>
-  <div style="flex:1;display:flex;flex-direction:column;align-items:center">
-    <div style="font-size:10px;color:#5F5E5A;font-weight:500;margin:4px 0">No — create new</div>
-    ${A()}
-    <div style="width:100%;border:1px solid #B4B2A9;border-radius:10px;padding:12px 10px 10px;background:#F1EFE8;margin:2px 0">
-      <div style="font-size:10px;font-weight:500;color:#5F5E5A;text-align:center;margin-bottom:10px;text-transform:uppercase;letter-spacing:.05em">Who drafts the new GI?</div>
-      <div style="display:flex;gap:0;align-items:flex-start">
-        <div style="flex:1;border-right:1px dashed #B4B2A9;padding-right:8px;display:flex;flex-direction:column;align-items:center">
-          <div style="font-size:11px;font-weight:500;color:#0C447C;text-align:center;margin-bottom:8px;padding:3px 8px;background:#E6F1FB;border-radius:20px;border:1px solid #85B7EB">MA team</div>
-          <div style="position:relative;width:110px;height:44px;margin:2px auto;flex-shrink:0"><svg width="110" height="44" style="position:absolute;inset:0;overflow:visible"><polygon points="55,2 107,22 55,42 3,22" fill="none" stroke="#EF9F27" stroke-width="2"/></svg><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:#2C2C2A;text-align:center;line-height:1.3">GI type?</div></div>
-          <div style="display:flex;width:100%;gap:4px;align-items:flex-start;margin-top:6px">
-            <div style="flex:1"><div class="fbox" style="border-left:3px solid #185FA5;min-width:0;width:100%;padding:6px 8px"><div class="frole">Technical Team</div><div class="flabel" style="font-size:11px">Draft GI</div><div class="fsub">Report · Protocol</div></div></div>
-            <div style="flex:1"><div class="fbox" style="border-left:3px solid #3B6D11;min-width:0;width:100%;padding:6px 8px"><div class="frole">CSC Team</div><div class="flabel" style="font-size:11px">Draft GI</div><div class="fsub">Coordination · Booking</div></div></div>
-          </div>
-          ${A()}
-        </div>
-        <div style="flex:1;padding-left:8px;display:flex;flex-direction:column;align-items:center">
-          <div style="font-size:11px;font-weight:500;color:#27500A;text-align:center;margin-bottom:8px;padding:3px 8px;background:#EAF3DE;border-radius:20px;border:1px solid #97C459">EA team</div>
-          <div class="fbox" style="border-left:3px solid #3B6D11;width:100%;padding:6px 8px"><div class="frole">Technical Team (EA)</div><div class="flabel" style="font-size:11px">Drafts GI for ALL types</div><div class="fsub">Report · Protocol · Auditor · Coordination</div></div>
-          <div style="display:flex;align-items:flex-start;width:100%;gap:4px;margin-top:0">
-            <div style="flex:1"></div>
-            <div class="farrow" style="margin:0"></div>
-            <div style="flex:1.6;border:1.5px dashed #EF9F27;border-radius:6px;padding:5px 6px;background:#FAEEDA;margin-top:2px"><div style="font-size:9px;font-weight:500;color:#633806;text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px">Risk note</div><div style="font-size:10px;color:#633806;line-height:1.4">CSC may update directly for easy requests, skipping back office notification</div></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    ${A()}
-    <div class="fbox"><div class="frole">Technical Team</div><div class="flabel">Save as PDF and rename</div><div class="fsub">{GI}type-Client-Team-Date</div></div>
-    ${A()}
-    <div class="fbox" style="border-left:3px solid #185FA5"><div class="frole">Manager</div><div class="flabel">Review and approve GI</div><div class="fsub">Team leader sign-off required</div></div>
-    ${A()}
-    <div class="fbox" style="border-left:3px solid #854F0B"><div class="frole">Technical Team</div><div class="flabel">Send email to Support Team</div><div class="fsub">Attach approved GI PDF</div></div>
-    ${A()}
-    <div class="fbox"><div class="frole">Support Team</div><div class="flabel">Upload to SSO and sync to orders</div><div class="fsub">Technical team has no SSO access</div></div>
-    ${A()}
-    <div class="finfo"><div class="frole">Support Team</div><div class="flabel">Notify back office of updated GI</div><div class="fsub">Required — must not be skipped</div></div>
-    ${A()}
-    ${M('GI approved, uploaded and back office notified')}
-  </div>
-</div>`;
+const ph1=`${B('Technical Team','Check if GI exists in SSO','','#185FA5')}${A()}${D('GI exists?')}<div style="display:flex;width:100%;gap:8px;align-items:flex-start"><div style="width:120px;flex-shrink:0;display:flex;flex-direction:column;align-items:center"><div style="font-size:10px;color:#5F5E5A;font-weight:500;margin:4px 0">Yes</div><div class="fbox" style="width:100%"><div class="frole">All Teams</div><div class="flabel">Use existing GI in SSO</div></div>${A()}<div style="background:#EAF3DE;border:1px solid #97C459;border-radius:16px;padding:6px 10px;text-align:center;width:100%"><div style="font-size:11px;font-weight:500;color:#27500A">Proceed to factory contact</div></div></div><div style="flex:1;display:flex;flex-direction:column;align-items:center"><div style="font-size:10px;color:#5F5E5A;font-weight:500;margin:4px 0">No — create new</div>${A()}<div style="width:100%;border:1px solid #B4B2A9;border-radius:10px;padding:12px 10px 10px;background:#F1EFE8;margin:2px 0"><div style="font-size:10px;font-weight:500;color:#5F5E5A;text-align:center;margin-bottom:10px;text-transform:uppercase;letter-spacing:.05em">Who drafts the new GI?</div><div style="display:flex;gap:0;align-items:flex-start"><div style="flex:1;border-right:1px dashed #B4B2A9;padding-right:8px;display:flex;flex-direction:column;align-items:center"><div style="font-size:11px;font-weight:500;color:#0C447C;text-align:center;margin-bottom:8px;padding:3px 8px;background:#E6F1FB;border-radius:20px;border:1px solid #85B7EB">MA team</div><div style="position:relative;width:110px;height:44px;margin:2px auto;flex-shrink:0"><svg width="110" height="44" style="position:absolute;inset:0;overflow:visible"><polygon points="55,2 107,22 55,42 3,22" fill="none" stroke="#EF9F27" stroke-width="2"/></svg><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:#2C2C2A;text-align:center;line-height:1.3">GI type?</div></div><div style="display:flex;width:100%;gap:4px;align-items:flex-start;margin-top:6px"><div style="flex:1"><div class="fbox" style="border-left:3px solid #185FA5;min-width:0;width:100%;padding:6px 8px"><div class="frole">Technical Team</div><div class="flabel" style="font-size:11px">Draft GI</div><div class="fsub">Report · Protocol</div></div></div><div style="flex:1"><div class="fbox" style="border-left:3px solid #3B6D11;min-width:0;width:100%;padding:6px 8px"><div class="frole">CSC Team</div><div class="flabel" style="font-size:11px">Draft GI</div><div class="fsub">Coordination · Booking</div></div></div></div>${A()}</div><div style="flex:1;padding-left:8px;display:flex;flex-direction:column;align-items:center"><div style="font-size:11px;font-weight:500;color:#27500A;text-align:center;margin-bottom:8px;padding:3px 8px;background:#EAF3DE;border-radius:20px;border:1px solid #97C459">EA team</div><div class="fbox" style="border-left:3px solid #3B6D11;width:100%;padding:6px 8px"><div class="frole">Technical Team (EA)</div><div class="flabel" style="font-size:11px">Drafts GI for ALL types</div><div class="fsub">Report · Protocol · Auditor · Coordination</div></div><div style="display:flex;align-items:flex-start;width:100%;gap:4px;margin-top:0"><div style="flex:1"></div><div class="farrow" style="margin:0"></div><div style="flex:1.6;border:1.5px dashed #EF9F27;border-radius:6px;padding:5px 6px;background:#FAEEDA;margin-top:2px"><div style="font-size:9px;font-weight:500;color:#633806;text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px">Risk note</div><div style="font-size:10px;color:#633806;line-height:1.4">CSC may update directly for easy requests, skipping back office notification</div></div></div></div></div></div>${A()}${B('Technical Team','Save as PDF and rename','{GI}type-Client-Team-Date')}${A()}<div class="fbox" style="border-left:3px solid #185FA5"><div class="frole">Manager</div><div class="flabel">Review and approve GI</div><div class="fsub">Team leader sign-off required</div></div>${A()}<div class="fbox" style="border-left:3px solid #854F0B"><div class="frole">Technical Team</div><div class="flabel">Send email to Support Team</div><div class="fsub">Attach approved GI PDF</div></div>${A()}${B('Support Team','Upload to SSO and sync to orders','Technical team has no SSO access')}${A()}${N('Support Team','Notify back office of updated GI','Required — must not be skipped')}${A()}${M('GI approved, uploaded and back office notified')}</div></div>`;
 
 const phases=[
-{n:1,l:'GI creation',c:'#185FA5',raci:'Technical Team (R) · Manager (A) · Support Team (I)',sla:'Must be completed before order booking',flow:ph1},
-{n:2,l:'Order booking & announcement',c:'#888780',raci:'Coordination (R)',sla:'Kick-off email: Day 0 · Reminder: +3 working days if no response',
+{n:1,l:'Order preparation with client',c:'#185FA5',raci:'Technical Team (R) · Manager (A) · Support Team (I)',sla:'GI must be completed before factory contact',flow:ph1},
+
+{n:2,l:'First contact with factory for data gathering',c:'#854F0B',raci:'Coordination (R)',sla:'Reminders every 3 working days · 4 days max per cycle',
 flow:`
-${B('Coordination','Check client GI for announcement and contact rules','','#888780')}
+${B('Coordination','Check client GI for announcement and contact rules','','#854F0B')}
 ${A()}
 ${D('Announcement type?')}
 ${A()}
-<div style="width:100%;border:1px solid #B4B2A9;border-radius:10px;padding:12px 8px 6px;background:#F1EFE8;margin:2px 0">
-  <div style="display:flex;gap:0;align-items:flex-start">
-    <div style="flex:1;border-right:1px dashed #B4B2A9;padding-right:6px;display:flex;flex-direction:column;align-items:center">
-      ${badge('Announced')}
-      <div class="fbox" style="width:100%;padding:6px 8px"><div class="frole">Coordination</div><div class="flabel" style="font-size:11px">Send kick-off email to factory</div><div class="fsub">Written confirmation required</div></div>
-      ${A()}
-      <div class="fbox" style="width:100%;padding:6px 8px"><div class="frole">Supplier</div><div class="flabel" style="font-size:11px">Factory confirms date in writing</div></div>
-      ${A()}
-    </div>
-    <div style="flex:1;border-right:1px dashed #B4B2A9;padding:0 6px;display:flex;flex-direction:column;align-items:center">
-      ${badge('Semi')}
-      <div class="fbox" style="width:100%;padding:6px 8px"><div class="frole">Coordination</div><div class="flabel" style="font-size:11px">Propose audit window</div><div class="fsub">Collect unavailability dates</div></div>
-      ${A()}
-      <div class="fbox" style="width:100%;padding:6px 8px"><div class="frole">Supplier</div><div class="flabel" style="font-size:11px">Factory confirms window in writing</div></div>
-      ${A()}
-    </div>
-    <div style="flex:1;padding-left:6px;display:flex;flex-direction:column;align-items:center">
-      ${badge('Unannounced')}
-      <div class="fbox" style="width:100%;padding:6px 8px"><div class="frole">Coordination</div><div class="flabel" style="font-size:11px">No factory contact</div><div class="fsub">Internal preparation only</div></div>
-      <div style="height:50px"></div>
-      ${A()}
-    </div>
+${BP3('Announced',`${B('Coordination','Send kick-off email to factory','Day 0 · written confirmation required')}${A()}`,
+      'Semi',`${B('Coordination','Propose audit window','Collect unavailability dates')}${A()}`,
+      'Unannounced',`${B('Coordination','No factory contact','Internal preparation only')}<div style="height:18px"></div>${A()}`)}
+<div style="width:100%;border:1px solid #B4B2A9;border-radius:10px;padding:12px 10px 8px;background:#F1EFE8;margin:4px 0">
+  <div style="font-size:10px;font-weight:500;color:#5F5E5A;text-align:center;margin-bottom:10px;text-transform:uppercase;letter-spacing:.05em">Reminder cycle — every 3 working days (4 days max)</div>
+  <div style="display:flex;justify-content:center;align-items:flex-start;gap:10px">
+    <div class="fbox" style="min-width:90px;padding:6px 8px"><div class="frole">Coordination</div><div class="flabel" style="font-size:11px">1st reminder</div></div>
+    <div style="font-size:16px;color:#888780;margin-top:10px">→</div>
+    <div class="fbox" style="min-width:90px;padding:6px 8px"><div class="frole">Coordination</div><div class="flabel" style="font-size:11px">2nd reminder</div></div>
+    <div style="font-size:16px;color:#888780;margin-top:10px">→</div>
+    <div class="fbox" style="min-width:90px;padding:6px 8px"><div class="frole">Coordination</div><div class="flabel" style="font-size:11px">3rd reminder</div></div>
   </div>
 </div>
-${D('Response received?')}
 ${A()}
-${BP('No',`${B('Coordination','Send reminder at Day +3','')}${A()}`,'Yes',`<div style="height:20px"></div>${A()}`)}
-${B('Protocol Team','Validate and assign order','Confirm all order details are complete','#3B6D11')}
+${D('Did supplier respond?')}
+${A()}
+${BP('Yes — responded',`
+  ${M('Factory contact completed — proceed to Phase 3')}
+`,
+'No — no response',`
+  <div style="width:100%;border:1px solid #F0997B;border-radius:10px;padding:10px 8px 8px;background:#FAECE7;margin:2px 0">
+    <div style="font-size:10px;font-weight:500;color:#712B13;text-align:center;margin-bottom:8px;text-transform:uppercase;letter-spacing:.05em">Client escalation</div>
+    ${B('Coordination','Email client in CC with current status','Check who-to-contact list for correct recipient','#993C1D')}
+    ${A()}
+    ${B('Coordination','Follow-up: escalate to SIC with client in CC','','#993C1D')}
+    ${A()}
+  </div>
+  ${D('Did Sales / SIC respond?')}
+  ${A()}
+  ${BP('Yes — resolved',`${M('Factory contact completed — proceed to Phase 3')}`,
+       'No',`${B('Coordination','Change SSO status to "Waiting for Feedback"','')}${A()}<div class="fmile" style="background:#FAECE7;border-color:#F0997B"><div class="fmile-txt" style="color:#712B13">On hold — awaiting feedback</div></div>`)}
+`)}
+`},
+
+{n:3,l:'Order validation & confirmation of audit date with client',c:'#3B6D11',raci:'Protocol Team (R) · Coordination (C)',sla:'',
+flow:`
+${B('Coordination','Send validation request to Protocol Team','','#3B6D11')}
+${A()}
+${D('Protocol team validates?')}
+${A()}
+${BP('Yes — validated',`
+  <div style="height:10px"></div>
+  ${A()}
+`,
+'No — issue / no response',`
+  <div style="width:100%;border:1px solid #534AB7;border-radius:10px;padding:10px 8px 8px;background:#EEEDFE;margin:2px 0">
+    <div style="font-size:10px;font-weight:500;color:#3C3489;text-align:center;margin-bottom:8px;text-transform:uppercase;letter-spacing:.05em">Protocol team escalation</div>
+    <div style="display:flex;justify-content:center;align-items:flex-start;gap:8px">
+      <div class="fbox" style="border-left:3px solid #534AB7;min-width:80px;padding:6px 8px"><div class="frole">Coordination</div><div class="flabel" style="font-size:11px">1st reminder</div></div>
+      <div style="font-size:14px;color:#534AB7;margin-top:10px">→</div>
+      <div class="fbox" style="border-left:3px solid #534AB7;min-width:80px;padding:6px 8px"><div class="frole">Coordination</div><div class="flabel" style="font-size:11px">2nd reminder</div></div>
+      <div style="font-size:14px;color:#534AB7;margin-top:10px">→</div>
+      <div class="fbox" style="border-left:3px solid #534AB7;min-width:80px;padding:6px 8px"><div class="frole">Coordination</div><div class="flabel" style="font-size:11px">3rd reminder</div></div>
+    </div>
+  </div>
+  ${A()}
+`)}
+${B('Protocol Team','Verify audit type, workers and factory','','#3B6D11')}
+${A()}
+${D('Booked MD sufficient?')}
+${A()}
+${BP('Yes',`
+  ${B('Protocol Team','Validate MD','')}
+  ${A()}
+`,
+'No',`
+  ${B('Protocol Team','Request more MD through system','')}
+  ${A()}
+  ${B('Protocol Team','Wait for client confirmation','')}
+  ${A()}
+  ${D('Client confirms?')}
+  ${A()}
+  ${BP('Yes',`${B('Protocol Team','Update MD in system','')}${A()}`,
+       'No',`${B('Protocol Team','Escalate to Team Leader for advice','')}${A()}`)}
+`)}
+${B('Protocol Team','Select sub-audit type and prepare documents','','#3B6D11')}
 ${A()}
 ${M('Order validated — proceed to allocation')}`},
-{n:3,l:'Validation & allocation',c:'#3B6D11',raci:'Protocol (R) · Coordination (A) · Support Team (C)',sla:'Stop allocation: 1 month before · Escalation: 8+ weeks before due date',
+
+{n:4,l:'Allocation & confirmation of audit date with supplier',c:'#534AB7',raci:'Coordination (R) · Support Team (C)',sla:'Stop allocation: 1 month before · Escalation: 8+ weeks before due date',
 flow:`
-${B('Protocol','Verify audit type, workers and factory','','#3B6D11')}
+${D('Audit date confirmed by client?')}
 ${A()}
-${B('Protocol','Validate mandays and select sub-audit type','')}
-${A()}
-${B('Coordination','Filter orders — Waiting Allocation','Check GIs and special requests','#888780')}
+${BP('No',`${B('Coordination','Follow up — renegotiate date with factory','')}${A('Retry until confirmed')}`,
+     'Yes',`<div style="height:20px"></div>${A()}`)}
+${B('Coordination','Filter orders — Waiting Allocation','Check GIs and special requests','#534AB7')}
 ${A()}
 ${B('Coordination','Select qualified auditor(s)','')}
 ${A()}
 ${D('Payment required?')}
 ${A()}
-${BP('Yes',`${B('Support Team','Follow up on payment','')}${A()}`,'No',`<div style="height:20px"></div>${A()}`)}
+${BP('Yes',`${B('Support Team','Follow up on payment','')}${A()}`,
+     'No',`<div style="height:20px"></div>${A()}`)}
 ${B('Coordination','Enter travel fees in IRP','Route and hotel if applicable')}
 ${A()}
-${M('Auditor allocated — proceed to IP pack')}`},
-{n:4,l:'IP pack & protocol',c:'#534AB7',raci:'Protocol (R)',sla:'',
+${B('Coordination','Confirm final audit date with supplier','','#534AB7')}
+${A()}
+${M('Auditor allocated · supplier date confirmed')}`},
+
+{n:5,l:'Protocol preparation',c:'#993C1D',raci:'Protocol (R)',sla:'',
 flow:`
-${B('Protocol','Generate factory disclaimer','','#534AB7')}
+${B('Protocol','Generate factory disclaimer','','#993C1D')}
 ${A()}
 ${D('Using Auditor App?')}
 ${A()}
-${BP('Yes — App',`${B('Protocol','Assign online checklist','Via Protocol Master')}${A()}`,'No — Manual',`${B('Protocol','Create ZIP file','Qxxxxxx.zip format')}${A()}`)}
-${B('Protocol','Upload pack and mark IP Ready','','#534AB7')}
+${BP('Yes — App',`${B('Protocol','Assign online checklist','Via Protocol Master')}${A()}`,
+     'No — Manual',`${B('Protocol','Create ZIP file','Qxxxxxx.zip format')}${A()}`)}
+${B('Protocol','Upload pack and mark IP Ready','','#993C1D')}
 ${A()}
 ${B('System','Auto-sends pack link to auditor','Directly via Auditor App')}
 ${A()}
-${M('IP pack ready — auditor briefed by system')}`},
-{n:5,l:'On-site audit',c:'#993C1D',raci:'Auditor (R)',sla:'CAPR submission: within 2 working days after audit',
+${M('Protocol pack ready — auditor briefed')}`},
+
+{n:6,l:'Audit execution',c:'#D85A30',raci:'Auditor (R)',sla:'CAPR submission: within 2 working days after audit',
 flow:`
-${B('Auditor','Preparation: print COC, confirm factory','','#993C1D')}
+${B('Auditor','Preparation: print COC, confirm factory','','#D85A30')}
 ${A()}
 ${B('Auditor','Opening meeting: sign COC','')}
 ${A()}
@@ -219,11 +222,13 @@ ${A()}
 ${B('Auditor','Closing meeting: CAP agreed with factory','')}
 ${A()}
 ${M('CAPR submitted to back office for review')}`},
-{n:6,l:'Report validation',c:'#378ADD',raci:'Report Reviewer (R)',sla:'',
+
+{n:7,l:'Report validation',c:'#378ADD',raci:'Report Reviewer (R)',sla:'',
 flow:`
 ${D('Working day?')}
 ${A()}
-${BP('Yes — working day',`${B('Manager / Leader','Assign reports to supervisors','Daily · Mon–Fri · balanced load')}${A()}${B('Manager / Leader','Flag priority reports','Urgent clients highlighted')}${A()}`,'No — weekend',`${B('Reviewer','Prioritize oldest reports','Self-assigned')}${A()}`)}
+${BP('Yes — working day',`${B('Manager / Leader','Assign reports to supervisors','Daily · Mon–Fri · balanced load')}${A()}${B('Manager / Leader','Flag priority reports','Urgent clients highlighted')}${A()}`,
+     'No — weekend',`${B('Reviewer','Prioritize oldest reports','Self-assigned')}${A()}`)}
 ${B('Reviewer','Search order number in Teams group','','#378ADD')}
 ${A()}
 ${B('Reviewer','Leave claim message in Teams','')}
@@ -232,22 +237,28 @@ ${B('Reviewer','Review and validate the report','')}
 ${A()}
 ${D('Report complete?')}
 ${A()}
-${BP('No',`${B('Reviewer','Send back to auditor','Via Teams and email')}<div style="font-size:10px;color:#854F0B;text-align:center;margin-top:6px;padding:3px 8px;background:#FAEEDA;border-radius:6px;border:1px dashed #EF9F27">↩ Returns to review step</div>${A()}`,'Yes',`${B('Reviewer','Leave release message in Teams','')}${A()}${B('Reviewer','Tag responsible owner','For specific client')}${A()}`)}
+${BP('No',`${B('Reviewer','Send back to auditor','Via Teams and email')}<div style="font-size:10px;color:#854F0B;text-align:center;margin-top:6px;padding:3px 8px;background:#FAEEDA;border-radius:6px;border:1px dashed #EF9F27">↩ Returns to review step</div>${A()}`,
+     'Yes',`${B('Reviewer','Leave release message in Teams','')}${A()}${B('Reviewer','Tag responsible owner','For specific client')}${A()}`)}
 ${M('Report released and owner tagged')}`},
-{n:7,l:'CAP & closure',c:'#0F6E56',raci:'Report Reviewer (R) · Coordination (A)',sla:'CAP TAT: per client GI (~30 days) · Max 3 submissions or 90 days',
+
+{n:8,l:'Report send to client / upload to client system',c:'#0F6E56',raci:'Coordination (R) · Report Reviewer (A)',sla:'CAP TAT: per client GI (~30 days) · Max 3 submissions or 90 days',
 flow:`
-${B('Auditor','Issue CAP to supplier post-audit','','#0F6E56')}
+${B('Coordination','Send final report to client','Via email or upload to client portal','#0F6E56')}
+${A()}
+${B('Auditor','Issue CAP to supplier post-audit','')}
 ${A()}
 ${B('Supplier','Upload CAP and evidence within TAT','')}
 ${A()}
 ${D('Submitted on time?')}
 ${A()}
-${BP('No',`${B('Reviewer','Send CAP reminder to supplier','')}${A()}`,'Yes',`<div style="height:20px"></div>${A()}`)}
+${BP('No',`${B('Reviewer','Send CAP reminder to supplier','')}${A()}`,
+     'Yes',`<div style="height:20px"></div>${A()}`)}
 ${B('Reviewer','Initial check: format, quality, sufficiency','','#0F6E56')}
 ${A()}
 ${D('Evidence sufficient?')}
 ${A()}
-${BP('No',`${B('Supplier','Resubmit evidence','Max 3 submissions')}${A()}`,'Yes',`${B('Reviewer','Full CAP desktop review','')}${A()}`)}
+${BP('No',`${B('Supplier','Resubmit evidence','Max 3 submissions')}${A()}`,
+     'Yes',`${B('Reviewer','Full CAP desktop review','')}${A()}`)}
 ${B('Reviewer','Update SSO and notify client','','#0F6E56')}
 ${A()}
 ${M('Audit closed — order status: Finished')}`}
