@@ -50,7 +50,62 @@ tr:nth-child(even) td{background:#FAFAF8}
 </style>
 </head>
 <body>
+<style>
+#gate{position:fixed;inset:0;background:#f5f4f0;display:flex;align-items:center;justify-content:center;z-index:9999;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+#gate-box{background:#fff;border:1px solid #D3D1C7;border-radius:12px;padding:32px 36px;width:320px;text-align:center}
+#gate-logo{font-size:22px;font-weight:500;color:#2C2C2A;margin-bottom:6px}
+#gate-sub{font-size:12px;color:#888780;margin-bottom:24px}
+#gate-input{width:100%;padding:10px 14px;border:1px solid #D3D1C7;border-radius:8px;font-size:13px;color:#2C2C2A;outline:none;margin-bottom:10px;box-sizing:border-box}
+#gate-input:focus{border-color:#888780}
+#gate-btn{width:100%;padding:10px;background:#2C2C2A;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer}
+#gate-btn:hover{background:#444441}
+#gate-err{font-size:11px;color:#A32D2D;margin-top:8px;display:none}
+#main-content{display:none}
+</style>
+<div id="gate">
+  <div id="gate-box">
+    <div id="gate-logo">QIMA Audit Ops</div>
+    <div id="gate-sub">Internal documentation — authorized access only</div>
+    <input id="gate-input" type="password" placeholder="Enter password" onkeydown="if(event.key==='Enter')unlock()">
+    <button id="gate-btn" onclick="unlock()">Access</button>
+    <div id="gate-err">Incorrect password. Please try again.</div>
+  </div>
+</div>
+<script>
+function sha256(str){
+  const buf=new TextEncoder().encode(str);
+  return crypto.subtle.digest('SHA-256',buf).then(b=>Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join(''));
+}
+const HASH='f622d5ed9cf1f60444c1c686b45354b7dfffb4ce39aece819487ee3bf5dbedd2';
+const KEY='qima_auth';
+if(sessionStorage.getItem(KEY)===HASH){
+  document.getElementById('gate').style.display='none';
+  document.getElementById('main-content').style.display='block';
+}
+function unlock(){
+  const val=document.getElementById('gate-input').value;
+  sha256(val).then(h=>{
+    if(h===HASH){
+      sessionStorage.setItem(KEY,HASH);
+      document.getElementById('gate').style.display='none';
+      document.getElementById('main-content').style.display='block';
+    } else {
+      document.getElementById('gate-err').style.display='block';
+      document.getElementById('gate-input').value='';
+      document.getElementById('gate-input').focus();
+    }
+  });
+}
+</script>
+<div id="main-content">
 <div class="page">
+<div style="max-width:860px;margin:0 auto 0">
+<div style="background:#FAEEDA;border:1px solid #EF9F27;border-radius:10px;padding:12px 16px;margin-bottom:16px;font-size:12px;color:#2C2C2A;line-height:1.7">
+  <strong style="color:#633806">Draft — pending validation from Coordination team</strong><br>
+  This Work Instruction was created based on IRP screenshots (April 16 2026). The reason usage rules and notification guidelines below are to be confirmed by <strong>Mandy Xie</strong> and <strong>Zhatria Sampang</strong> (Coordination team, MA) before this document is considered final.<br>
+  <span style="color:#888780;font-size:11px">Related: <strong>Daniele Guidarelli</strong> is separately working on a list of regularly received client requests — to be linked here once available.</span>
+</div>
+</div>
 
 <div class="header">
   <div class="header-left">
@@ -78,13 +133,16 @@ tr:nth-child(even) td{background:#FAFAF8}
   <div class="section-title">Overview — what this process is</div>
   <div class="step-desc" style="line-height:1.8">
     When an inspection date needs to change — whether pushed earlier or postponed — the Coordination team must update it in IRP using the <strong>Change Inspection Date</strong> function. This ensures the system reflects the correct date, triggers the right notifications, and records the reason for audit trail purposes.<br><br>
-    The four key questions this WI answers:
-    <ol style="margin-top:8px;padding-left:20px;font-size:12px;color:#5F5E5A;line-height:2">
-      <li>What reasons does the Coordination team use?</li>
-      <li>In which circumstances is each reason used?</li>
-      <li>When should you untick <em>"Send notification mail to the client"</em>?</li>
-      <li>What happens after you select the reason and click Confirm?</li>
+    <strong>This WI formally answers Remy Parent's four alignment questions:</strong>
+    <ol style="margin-top:8px;padding-left:20px;font-size:12px;color:#5F5E5A;line-height:2.2">
+      <li><strong>What reasons does Audit Coordination use?</strong> → See Section 2: full reasons table</li>
+      <li><strong>In which circumstances is each reason used?</strong> → See Section 2: "When to use" column</li>
+      <li><strong>When to untick "Send notification mail to client"?</strong> → See Section 3: notification decision table</li>
+      <li><strong>What happens after selecting reason and clicking Confirm?</strong> → See Section 4</li>
     </ol>
+    <div style="background:#FAEEDA;border:1px solid #EF9F27;border-radius:6px;padding:8px 12px;margin-top:10px;font-size:11px;color:#633806">
+      <strong>Screenshot note:</strong> The IRP dropdown visible in the screenshot may be cut off — additional reasons below "Missing Mandatory Documents" may exist. Coordination team to confirm complete list during validation.
+    </div>
   </div>
 </div>
 
@@ -290,6 +348,11 @@ tr:nth-child(even) td{background:#FAFAF8}
   </div>
 </div>
 
+</div>
+<div style="max-width:860px;margin:20px auto 0;display:flex;gap:10px;flex-wrap:wrap">
+  <a href="IRP_Level2_Swimlane.html" style="display:inline-block;padding:7px 16px;background:#E6F1FB;border:1px solid #85B7EB;border-radius:8px;font-size:12px;font-weight:500;color:#0C447C;text-decoration:none">← Level 2 swimlane — IRP Change Inspection Date</a>
+  <a href="index.html" style="display:inline-block;padding:7px 16px;background:#F1EFE8;border:1px solid #D3D1C7;border-radius:8px;font-size:12px;font-weight:500;color:#5F5E5A;text-decoration:none">↑ Back to Audit Execution SOP (Non-KA)</a>
+</div>
 </div>
 </body>
 </html>
