@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WI — GI Creation (Non-KA)</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f5f4f0;color:#2C2C2A;padding:24px}
+.page{max-width:860px;margin:0 auto}
+.header{background:#fff;border:1px solid #D3D1C7;border-radius:12px;padding:20px 24px;margin-bottom:20px;display:flex;align-items:center;gap:16px}
+.header-left{flex:1}
+.doc-type{font-size:10px;font-weight:500;color:#888780;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}
+h1{font-size:20px;font-weight:500;color:#2C2C2A;margin-bottom:4px}
+.meta{font-size:12px;color:#888780}
+.badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:500;margin-right:6px;margin-bottom:4px}
+.b-phase{background:#E6F1FB;color:#0C447C;border:1px solid #85B7EB}
+.b-role{background:#EAF3DE;color:#27500A;border:1px solid #97C459}
+.placement-card{background:#FAEEDA;border:1px solid #EF9F27;border-radius:10px;padding:14px 18px;margin-bottom:20px}
+.placement-title{font-size:11px;font-weight:500;color:#633806;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
+.placement-body{font-size:13px;color:#2C2C2A;line-height:1.6}
+.section{background:#fff;border:1px solid #D3D1C7;border-radius:12px;padding:20px 24px;margin-bottom:16px}
+.section-title{font-size:14px;font-weight:500;color:#2C2C2A;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid #D3D1C7;display:flex;align-items:center;gap:8px}
+.step-num{width:22px;height:22px;border-radius:50%;background:#185FA5;color:#fff;font-size:11px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step{display:flex;gap:14px;margin-bottom:16px;align-items:flex-start}
+.step:last-child{margin-bottom:0}
+.step-body{flex:1}
+.step-title{font-size:13px;font-weight:500;color:#2C2C2A;margin-bottom:3px}
+.step-desc{font-size:12px;color:#5F5E5A;line-height:1.6}
+.screenshot{border:1px solid #D3D1C7;border-radius:8px;overflow:hidden;margin:10px 0}
+.screenshot img{width:100%;display:block}
+.screenshot-cap{background:#F1EFE8;padding:7px 12px;font-size:11px;color:#5F5E5A;border-top:1px solid #D3D1C7}
+.img-ph-inner{background:#FAFAF8;padding:32px 20px;text-align:center;border-bottom:1px solid #D3D1C7}
+.img-ph-icon{font-size:26px;margin-bottom:6px;opacity:.35}
+.img-ph-label{font-size:12px;font-weight:500;color:#888780}
+table{width:100%;border-collapse:collapse;font-size:12px;margin-top:4px}
+th{background:#F1EFE8;padding:8px 12px;text-align:left;font-weight:500;color:#2C2C2A;border:1px solid #D3D1C7;font-size:11px}
+td{padding:8px 12px;border:1px solid #D3D1C7;vertical-align:top;color:#2C2C2A;line-height:1.5}
+tr:nth-child(even) td{background:#FAFAF8}
+.tag{display:inline-block;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:500;margin-right:3px}
+.t-tech{background:#E6F1FB;color:#0C447C;border:1px solid #85B7EB}
+.t-csc{background:#EAF3DE;color:#27500A;border:1px solid #97C459}
+.warn-box{background:#FAECE7;border:1px solid #F0997B;border-radius:8px;padding:12px 14px;margin-top:10px}
+.warn-title{font-size:11px;font-weight:500;color:#712B13;margin-bottom:4px;text-transform:uppercase;letter-spacing:.05em}
+.warn-body{font-size:12px;color:#2C2C2A;line-height:1.6}
+.info-box{background:#E6F1FB;border:1px solid #85B7EB;border-radius:8px;padding:12px 14px;margin-top:10px}
+.info-body{font-size:12px;color:#0C447C;line-height:1.6}
+.divider{height:1px;background:#D3D1C7;margin:16px 0}
+.sub-header{font-size:11px;font-weight:500;color:#5F5E5A;text-transform:uppercase;letter-spacing:.06em;margin:14px 0 10px}
+.mono{font-family:monospace;font-size:11px;font-weight:600;color:#185FA5;background:#E6F1FB;border-radius:4px;padding:2px 5px;word-break:break-all}
+</style>
+</head>
+<body>
+<style>
+#gate{position:fixed;inset:0;background:#f5f4f0;display:flex;align-items:center;justify-content:center;z-index:9999;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+#gate-box{background:#fff;border:1px solid #D3D1C7;border-radius:12px;padding:32px 36px;width:320px;text-align:center}
+#gate-logo{font-size:22px;font-weight:500;color:#2C2C2A;margin-bottom:6px}
+#gate-sub{font-size:12px;color:#888780;margin-bottom:24px}
+#gate-input{width:100%;padding:10px 14px;border:1px solid #D3D1C7;border-radius:8px;font-size:13px;color:#2C2C2A;outline:none;margin-bottom:10px;box-sizing:border-box}
+#gate-input:focus{border-color:#888780}
+#gate-btn{width:100%;padding:10px;background:#2C2C2A;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer}
+#gate-btn:hover{background:#444441}
+#gate-err{font-size:11px;color:#A32D2D;margin-top:8px;display:none}
+#main-content{display:none}
+</style>
+<div id="gate">
+  <div id="gate-box">
+    <div id="gate-logo">QIMA Audit Ops</div>
+    <div id="gate-sub">Internal documentation — authorized access only</div>
+    <input id="gate-input" type="password" placeholder="Enter password" onkeydown="if(event.key==='Enter')unlock()">
+    <button id="gate-btn" onclick="unlock()">Access</button>
+    <div id="gate-err">Incorrect password. Please try again.</div>
+  </div>
+</div>
+<script>
+function sha256(str){
+  const buf=new TextEncoder().encode(str);
+  return crypto.subtle.digest('SHA-256',buf).then(b=>Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join(''));
+}
+const HASH='f622d5ed9cf1f60444c1c686b45354b7dfffb4ce39aece819487ee3bf5dbedd2';
+const KEY='qima_auth';
+document.addEventListener('DOMContentLoaded',function(){
+  if(sessionStorage.getItem(KEY)===HASH){
+    document.getElementById('gate').style.display='none';
+    document.getElementById('main-content').style.display='block';
+  }
+});
+function unlock(){
+  const val=document.getElementById('gate-input').value;
+  sha256(val).then(h=>{
+    if(h===HASH){
+      sessionStorage.setItem(KEY,HASH);
+      document.getElementById('gate').style.display='none';
+      document.getElementById('main-content').style.display='block';
+    } else {
+      document.getElementById('gate-err').style.display='block';
+      document.getElementById('gate-input').value='';
+      document.getElementById('gate-input').focus();
+    }
+  });
+}
+</script>
+
+<div id="main-content">
+<div class="page">
+
+<div class="header">
+  <div class="header-left">
+    <div class="doc-type">Work Instruction — Level 3</div>
+    <h1>GI Creation — Non-KA Cases</h1>
+    <div class="meta">
+      <span class="badge b-phase">Phase 1 — Order Preparation with Client</span>
+      <span class="badge b-role">Technical Team</span>
+      <span class="badge b-role">CSC Team</span>
+      <span class="badge b-role">Support Team</span>
+    </div>
+  </div>
+</div>
+
+<div class="placement-card">
+  <div class="placement-title">Where this fits in the Audit Execution SOP (Non-KA)</div>
+  <div class="placement-body">
+    This Work Instruction is a <strong>sub-process</strong> of the Audit Execution SOP Non-KA and sits within <strong>Phase 1 — Order Preparation with Client.</strong><br><br>
+    It is triggered when a client places an order with remarks indicating a GI requirement and no valid GI currently exists in SSO for that client — or when an existing GI needs to be updated following new client instructions.<br><br>
+    The output of this WI — an approved GI uploaded and synced in SSO — is a prerequisite for all subsequent audit execution phases. Audits cannot proceed correctly without an active and current GI on the order.
+  </div>
+</div>
+
+<!-- OVERVIEW -->
+<div class="section">
+  <div class="section-title">Overview — what this process covers</div>
+  <div class="step-desc" style="line-height:1.8">
+    A <strong>General Instruction (GI)</strong> defines how a specific client's audits must be conducted — covering reporting format, scoring approach, protocol rules, coordination requirements, and any client-specific standards. Each GI is client-specific and product-category-specific.<br><br>
+    This WI covers the full lifecycle from intake to GI active in the SSO master list:
+    <ol style="margin-top:8px;padding-left:20px;font-size:12px;color:#5F5E5A;line-height:2.2">
+      <li><strong>Check if a GI already exists in SSO</strong> → Section 1</li>
+      <li><strong>Clarify requirements and identify the GI type</strong> → Section 2</li>
+      <li><strong>Draft the GI</strong> (Technical Team or CSC Team, depending on type) → Section 3</li>
+      <li><strong>Validate the draft against client request and audit standards</strong> → Section 4</li>
+      <li><strong>Submit to manager for review and approval</strong> → Section 5</li>
+      <li><strong>Save as PDF and apply the correct file naming convention</strong> → Section 6</li>
+      <li><strong>Send to Support Team for SSO upload</strong> → Section 7</li>
+      <li><strong>Support Team: update the GI in SSO</strong> → Section 8</li>
+      <li><strong>Sync GI to pending orders and master list</strong> → Section 9</li>
+      <li><strong>Notify the audit team</strong> → Section 10</li>
+    </ol>
+  </div>
+</div>
+
+<!-- SECTION 1 -->
+<div class="section">
+  <div class="section-title"><div class="step-num">1</div>Check if a GI already exists in SSO</div>
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-body">
+      <div class="step-title">Open the client account in SSO</div>
+      <div class="step-desc">Search for the client by name in SSO. Open the client account and navigate to the General Instructions (GI) section of the account profile.</div>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-body">
+      <div class="step-title">Review the client's GI master list</div>
+      <div class="step-desc">Check all GIs currently listed under this client account. Confirm whether a GI already exists that covers the relevant audit type and product category for the current order.</div>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-body">
+      <div class="step-title">Decision — GI exists or not?</div>
+      <div class="step-desc">
+        <strong style="color:#27500A">GI exists and is current →</strong> Use the existing GI in SSO. No new GI needs to be created. Proceed with the order normally.<br><br>
+        <strong style="color:#185FA5">No GI exists, or existing GI needs updating →</strong> Proceed to Section 2 to clarify requirements and begin the creation process.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 2 -->
+<div class="section">
+  <div class="section-title"><div class="step-num">2</div>Clarify requirements and identify the GI type</div>
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-body">
+      <div class="step-title">Read the order remarks carefully</div>
+      <div class="step-desc">Open the order and read all client remarks in full. The remarks typically specify: the product category, the GI name to use, the audit type, scoring instructions, and any special protocol the client has provided. Do not skim — missed details in remarks are a leading cause of incorrect GIs.</div>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-body">
+      <div class="step-title">If requirements are unclear — clarify with Sales or the client before drafting</div>
+      <div class="step-desc">If the remarks are incomplete or ambiguous, Sales and CSC must contact the client to confirm scope before any drafting begins. Do not make assumptions. A GI drafted on incorrect assumptions will require a full revision cycle and may delay the audit.</div>
+      <div class="screenshot" style="margin-top:10px">
+        <div class="img-ph-inner">
+          <div class="img-ph-icon">🖼️</div>
+          <div class="img-ph-label">Image 2 — Example client email providing GI details (Country Road Group)<br>
+          <span style="font-size:11px;color:#B4B2A9">Insert screenshot of the client email listing approved GI names per product type: Woven, Knitwear, Denim, Silicone/Hardgoods — for both the Protocol Team and Report Team. Date format: DDMMYYYY</span></div>
+        </div>
+        <div class="screenshot-cap">Fig. 2 — This is the type of client email that triggers a GI creation or update. It lists the exact approved GI names per product category and per team (Protocol vs Report). All names, codes, and dates must be captured exactly as specified by the client.</div>
+      </div>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-body">
+      <div class="step-title">Identify the audit type and determine which GI type is needed</div>
+      <div class="step-desc">Based on the client requirements, determine which GI type(s) are needed. This determines who drafts the GI in Section 3.</div>
+      <table style="margin-top:10px">
+        <tr>
+          <th>GI type</th>
+          <th>Who drafts</th>
+          <th>Typical content covered</th>
+        </tr>
+        <tr>
+          <td><span class="tag t-tech">Report</span></td>
+          <td><span class="tag t-tech">Technical Team</span></td>
+          <td>Reporting format, scoring method, colour rating thresholds, CAP requirements, presentation layout</td>
+        </tr>
+        <tr>
+          <td><span class="tag t-tech">Protocol</span></td>
+          <td><span class="tag t-tech">Technical Team</span></td>
+          <td>Audit checklist, critical NC definitions, sampling plan, product-specific test requirements</td>
+        </tr>
+        <tr>
+          <td><span class="tag t-csc">Coordination</span></td>
+          <td><span class="tag t-csc">CSC Team</span></td>
+          <td>Announcement rules, factory contact rules, booking window, language requirements</td>
+        </tr>
+        <tr>
+          <td><span class="tag t-csc">Support / Booking</span></td>
+          <td><span class="tag t-csc">CSC Team</span></td>
+          <td>Order creation rules, booking instructions, client portal upload requirements</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 3 -->
+<div class="section">
+  <div class="section-title"><div class="step-num">3</div>Draft the GI</div>
+
+  <div class="sub-header">If GI type is Report or Protocol → Technical Team drafts</div>
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-body">
+      <div class="step-title">Collect all source documents before starting</div>
+      <div class="step-desc">Gather: the client requirements email, any previous GI versions, the applicable audit protocol, and any scoring or colour rating instructions specified by the client. Do not start drafting without having all source materials in hand.</div>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-body">
+      <div class="step-title">Draft the GI following the client's instructions precisely</div>
+      <div class="step-desc">Write the GI content based on what the client has specified. Pay particular attention to scoring thresholds, colour rating definitions, critical NC criteria, and reporting format — clients often provide these explicitly and they must be captured exactly.</div>
+      <div class="screenshot" style="margin-top:10px">
+        <div class="img-ph-inner">
+          <div class="img-ph-icon">🖼️</div>
+          <div class="img-ph-label">Image 3 — Example client scoring &amp; colour rating instructions<br>
+          <span style="font-size:11px;color:#B4B2A9">Insert screenshot showing the client email with: Critical NC threshold table (0 = Green, 1–5 = Yellow, 6–10 = Amber, &gt;10 = Red) and Overall Score table (≥9 = Green, 8.5–&lt;9 = Yellow, 7.5–&lt;8.5 = Amber, &lt;7.5 = Red), plus the reporting approach paragraph and example</span></div>
+        </div>
+        <div class="screenshot-cap">Fig. 3 — Client-specified scoring and colour rating instructions. This content must be captured exactly in the GI for the Report Team. The overall audit colour rating is determined by the most severe outcome between the Critical NC threshold and the Overall Score threshold — this logic must be explicitly stated in the GI.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="sub-header">If GI type is Coordination or Support → CSC Team drafts</div>
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-body">
+      <div class="step-title">Collect the client's coordination and booking requirements</div>
+      <div class="step-desc">Gather: the client requirements email, any previous coordination GI, booking rules, and applicable announcement instructions for this client.</div>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-body">
+      <div class="step-title">Draft the GI covering all coordination and booking specifics</div>
+      <div class="step-desc">Write the GI covering: announcement type (announced / semi-announced / unannounced), factory contact rules, booking window, language preference, and any client-specific booking portal or order creation instructions.</div>
+    </div>
+  </div>
+
+  <div class="warn-box">
+    <div class="warn-title">Both GI types may be required at the same time</div>
+    <div class="warn-body">For some clients, a Technical GI (Report and/or Protocol) and a Coordination/Booking GI are needed simultaneously. In this case, each team drafts their respective GI in parallel. Both must reach approval before either is sent for SSO upload.</div>
+  </div>
+</div>
+
+<!-- SECTION 4 -->
+<div class="section">
+  <div class="section-title"><div class="step-num">4</div>Validate the draft against client request and audit standards</div>
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-body">
+      <div class="step-title">Cross-check every item in the draft against the client's requirements</div>
+      <div class="step-desc">Go through the client's original email or requirements document line by line. Confirm that every instruction has been captured — including GI names per product category, scoring thresholds, reporting format, and any special instructions.</div>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-body">
+      <div class="step-title">Verify the draft aligns with QIMA's audit standards</div>
+      <div class="step-desc">Ensure the GI content does not contradict QIMA's standard audit procedures. If any part of the client's requirements conflicts with QIMA's standards, flag this to the manager before proceeding — do not silently draft around a known conflict.</div>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-body">
+      <div class="step-title">Decision — is the client request valid and applicable?</div>
+      <div class="step-desc">
+        <strong style="color:#27500A">Yes, all requirements are clear and aligned →</strong> Proceed to Section 5 to submit for manager review.<br><br>
+        <strong style="color:#712B13">No — something is unclear or conflicting →</strong> Flag the issue to the manager immediately. Clarify with the client before proceeding. Do not submit a draft with unresolved issues.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 5 -->
+<div class="section">
+  <div class="section-title"><div class="step-num">5</div>Submit draft GI to manager for review and approval</div>
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-body">
+      <div class="step-title">Send the draft GI to your manager via email or Teams</div>
+      <div class="step-desc">Attach the draft GI file. Include a brief note with: the client name, GI type(s) being submitted, and a mention of any points that required a judgment call during drafting so the manager can focus their review accordingly.</div>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-body">
+      <div class="step-title">Manager reviews for accuracy, completeness, and client alignment</div>
+      <div class="step-desc">The manager (team leader) checks the GI against the client's requirements and QIMA's audit standards. Team leader sign-off is required before the GI proceeds to PDF formatting. This step is mandatory and cannot be skipped.</div>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-body">
+      <div class="step-title">Decision — approved or revisions needed?</div>
+      <div class="step-desc">
+        <strong style="color:#27500A">Approved →</strong> Proceed to Section 6 to save as PDF and apply the naming convention.<br><br>
+        <strong style="color:#712B13">Revisions needed →</strong> Manager returns the draft with specific comments. Drafter addresses all comments and resubmits for review. Do not move to PDF until approval is confirmed in writing.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 6 -->
+<div class="section">
+  <div class="section-title"><div class="step-num">6</div>Save as PDF and apply the correct file naming convention</div>
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-body">
+      <div class="step-title">Export the approved GI as a PDF</div>
+      <div class="step-desc">Once manager approval is confirmed, save or export the GI as a PDF. Do not make any content changes after approval — the PDF must exactly reflect what was signed off.</div>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-body">
+      <div class="step-title">Rename the PDF using the standard naming convention</div>
+      <div class="step-desc">Apply the following naming structure. Use the exact client code, product category, and date as specified in the client's requirements email.</div>
+      <div style="background:#F1EFE8;border:1px solid #D3D1C7;border-radius:8px;padding:14px 16px;margin-top:10px">
+        <div style="font-size:10px;font-weight:500;color:#5F5E5A;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">File naming convention</div>
+        <div style="font-family:monospace;font-size:13px;font-weight:600;color:#185FA5;background:#E6F1FB;border-radius:6px;padding:8px 12px;margin-bottom:12px">{GI type} _ {Client code} _ {Product category} _ {DDMMYYYY}</div>
+        <table>
+          <tr>
+            <th>Example filename</th>
+            <th>GI type</th>
+            <th>Notes</th>
+          </tr>
+          <tr>
+            <td><span class="mono">Technical Audit_CRG_Woven_Apparel_06042026</span></td>
+            <td><span class="tag t-tech">Protocol / Report</span></td>
+            <td>CRG = Country Road Group · Date = 06 Apr 2026</td>
+          </tr>
+          <tr>
+            <td><span class="mono">Technical Audit_CRG_Knitwear_Apparel_06042026</span></td>
+            <td><span class="tag t-tech">Protocol / Report</span></td>
+            <td>Separate file per product category</td>
+          </tr>
+          <tr>
+            <td><span class="mono">Technical Audit_CRG_Denim_Apparel_06042026</span></td>
+            <td><span class="tag t-tech">Protocol / Report</span></td>
+            <td>Separate file per product category</td>
+          </tr>
+          <tr>
+            <td><span class="mono">Technical Audit CRG General Hardgoods 06042026 Silicone Products</span></td>
+            <td><span class="tag t-tech">Protocol / Report</span></td>
+            <td>Append product sub-type at end where needed</td>
+          </tr>
+        </table>
+      </div>
+      <div class="info-box">
+        <div class="info-body"><strong>Important:</strong> The filename is how the Support Team and audit team identify this GI in SSO. Do not abbreviate, reorder, or change the format. Use the exact names provided by the client in their requirements email — not an internally invented shorthand.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 7 -->
+<div class="section">
+  <div class="section-title"><div class="step-num">7</div>Send the approved GI PDF to the Support Team</div>
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-body">
+      <div class="step-title">Compose an email to @Support</div>
+      <div class="step-desc">Address the email to the Support Team (tag @Support in the email or Teams message). Include: the client name, the GI type(s) being submitted, and a brief note of context — for example, whether this is a brand new GI or a replacement for an existing one.</div>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-body">
+      <div class="step-title">Attach the correctly named PDF</div>
+      <div class="step-desc">Attach the renamed PDF file to the email. Double-check the filename before sending — the Support Team will use this exact name when creating the GI in SSO. An incorrect filename at this stage means it will need to be corrected in SSO later.</div>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-body">
+      <div class="step-title">Send the email and retain a copy</div>
+      <div class="step-desc">Send the email. Keep a copy for your records. The Support Team will handle all SSO steps from this point — the Technical Team does not have GI uploading access in SSO.</div>
+    </div>
+  </div>
+  <div class="warn-box">
+    <div class="warn-title">Technical Team — no SSO GI upload access</div>
+    <div class="warn-body">The Technical Team cannot upload or modify GIs directly in SSO. All SSO actions — upload, sync, release, and notification — must be performed by the Support Team or CSC. Do not ask a colleague with SSO access to upload informally. All uploads must go through the correct Support Team channel to maintain the audit trail.</div>
+  </div>
+</div>
+
+<!-- SECTION 8 -->
+<div class="section">
+  <div class="section-title"><div class="step-num">8</div>Support Team — update the GI in SSO</div>
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-body">
+      <div class="step-title">Open the client account in SSO and navigate to the GI section</div>
+      <div class="step-desc">Search for the client by name in SSO. Open the client account and go to the General Instructions section of the account profile.</div>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-body">
+      <div class="step-title">Create a new GI version and attach the new PDF</div>
+      <div class="step-desc">Select the option to create a new version or add a new GI entry. Attach the PDF received from the Technical Team or CSC Team. Verify that the filename in SSO matches exactly what was provided.</div>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-body">
+      <div class="step-title">Delete the old GI version</div>
+      <div class="step-desc">Remove the previous GI version. Only one active version should exist per GI type per client. Leaving old versions active creates ambiguity for auditors and coordinators pulling up the order.</div>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">4</div>
+    <div class="step-body">
+      <div class="step-title">Complete the SSO publishing flow: Save → Release → Confirm</div>
+      <div class="step-desc">Execute all three steps in sequence. Save the new GI, then Release it, then Confirm. All three steps are required for the GI to become active in SSO. Stopping after Save or Release will leave the GI in draft state and it will not appear on orders.</div>
+    </div>
+  </div>
+  <div class="info-box">
+    <div class="info-body"><strong>Verification:</strong> After confirming, return to the client's GI list in SSO and check that the new GI appears as active before proceeding to Section 9.</div>
+  </div>
+</div>
+
+<!-- SECTION 9 -->
+<div class="section">
+  <div class="section-title"><div class="step-num">9</div>Sync the GI to pending orders and the master account list</div>
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-body">
+      <div class="step-title">Sync the new GI to all pending orders for this client</div>
+      <div class="step-desc">In SSO, use the sync function to apply the new GI to all current open and pending orders for this client. This ensures that auditors and coordinators working on existing orders will see the updated GI immediately, not just on new orders created after today.</div>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-body">
+      <div class="step-title">Sync to the master account list in SSO</div>
+      <div class="step-desc">Update the client's master account list in SSO to reflect the new GI. The master list is the reference used for all future orders — it must always be kept current. Failure to update the master list means the new GI may not automatically apply to future orders.</div>
+    </div>
+  </div>
+  <div class="warn-box">
+    <div class="warn-title">Do not skip the sync step</div>
+    <div class="warn-body">If the GI is uploaded but not synced to pending orders, auditors will continue to reference the old GI (or no GI) on their active orders. This is a common source of audit execution errors that only surfaces at the time of the audit — after which it is too late to correct without rescheduling.</div>
+  </div>
+</div>
+
+<!-- SECTION 10 -->
+<div class="section">
+  <div class="section-title"><div class="step-num">10</div>Notify the audit team of the new GI</div>
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-body">
+      <div class="step-title">Send a notification to all relevant teams</div>
+      <div class="step-desc">Once the GI is confirmed active and synced, notify: the audit back office, and any coordinators currently managing open orders for this client. The notification should include: client name, GI name(s) updated, effective date, and a brief summary of what changed (new GI vs. replacement, product categories affected).</div>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-body">
+      <div class="step-title">Confirm the GI is visible in the SSO master list — process complete</div>
+      <div class="step-desc">Do a final check: open the SSO master list for this client and verify the new GI appears as active. This is the final confirmation step. The GI creation process is complete once the GI is active in the SSO master list and all relevant teams have been notified.</div>
+    </div>
+  </div>
+  <div class="info-box">
+    <div class="info-body">
+      <strong>Process complete ✓</strong><br>
+      The GI is now active in SSO, synced to all pending orders, reflected in the master account list, and the audit team has been informed. The order can now proceed through the Audit Execution SOP.
+    </div>
+  </div>
+</div>
+
+</div>
+</div>
+</body>
+</html>
