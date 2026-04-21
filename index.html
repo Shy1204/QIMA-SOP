@@ -49,6 +49,54 @@ h1{font-size:18px;font-weight:500;color:#2C2C2A;margin-bottom:16px;padding-botto
 </style>
 </head>
 <body>
+<style>
+#gate{position:fixed;inset:0;background:#f5f4f0;display:flex;align-items:center;justify-content:center;z-index:9999;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+#gate-box{background:#fff;border:1px solid #D3D1C7;border-radius:12px;padding:32px 36px;width:320px;text-align:center}
+#gate-logo{font-size:22px;font-weight:500;color:#2C2C2A;margin-bottom:6px}
+#gate-sub{font-size:12px;color:#888780;margin-bottom:24px}
+#gate-input{width:100%;padding:10px 14px;border:1px solid #D3D1C7;border-radius:8px;font-size:13px;color:#2C2C2A;outline:none;margin-bottom:10px;box-sizing:border-box}
+#gate-input:focus{border-color:#888780}
+#gate-btn{width:100%;padding:10px;background:#2C2C2A;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer}
+#gate-btn:hover{background:#444441}
+#gate-err{font-size:11px;color:#A32D2D;margin-top:8px;display:none}
+#main-content{display:none}
+</style>
+<div id="gate">
+  <div id="gate-box">
+    <div id="gate-logo">QIMA Audit Ops</div>
+    <div id="gate-sub">Internal documentation — authorized access only</div>
+    <input id="gate-input" type="password" placeholder="Enter password" onkeydown="if(event.key==='Enter')unlock()">
+    <button id="gate-btn" onclick="unlock()">Access</button>
+    <div id="gate-err">Incorrect password. Please try again.</div>
+  </div>
+</div>
+<script>
+function sha256(str){
+  const buf=new TextEncoder().encode(str);
+  return crypto.subtle.digest('SHA-256',buf).then(b=>Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join(''));
+}
+const HASH='f622d5ed9cf1f60444c1c686b45354b7dfffb4ce39aece819487ee3bf5dbedd2';
+const KEY='qima_auth';
+if(sessionStorage.getItem(KEY)===HASH){
+  document.getElementById('gate').style.display='none';
+  document.getElementById('main-content').style.display='block';
+}
+function unlock(){
+  const val=document.getElementById('gate-input').value;
+  sha256(val).then(h=>{
+    if(h===HASH){
+      sessionStorage.setItem(KEY,HASH);
+      document.getElementById('gate').style.display='none';
+      document.getElementById('main-content').style.display='block';
+    } else {
+      document.getElementById('gate-err').style.display='block';
+      document.getElementById('gate-input').value='';
+      document.getElementById('gate-input').focus();
+    }
+  });
+}
+</script>
+<div id="main-content">
 <div class="w">
 <h1>Audit Execution SOP — Non-KA</h1>
 <div class="nav" id="nav"></div>
@@ -378,5 +426,6 @@ phases.forEach((p,i)=>{
   panels.appendChild(el);
 });
 </script>
+</div>
 </body>
 </html>
