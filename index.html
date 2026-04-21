@@ -40,6 +40,7 @@ h1{font-size:18px;font-weight:500;color:#2C2C2A;margin-bottom:16px;padding-botto
 .rtable .r-pill{display:inline-block;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:500;margin:1px 2px 1px 0;white-space:nowrap}
 .r-r{background:#E6F1FB;color:#0C447C;border:1px solid #85B7EB}
 .r-a{background:#FAEEDA;color:#633806;border:1px solid #EF9F27}
+.r-s{background:#F3EAFB;color:#5B2D8E;border:1px solid #C49EE0}
 .r-c{background:#EAF3DE;color:#27500A;border:1px solid #97C459}
 .r-i{background:#F1EFE8;color:#444441;border:1px solid #D3D1C7}
 .raci-legend{display:flex;gap:10px;flex-wrap:wrap;padding:10px 0 6px;border-top:1px solid #D3D1C7;margin-top:4px}
@@ -77,10 +78,12 @@ function sha256(str){
 }
 const HASH='f622d5ed9cf1f60444c1c686b45354b7dfffb4ce39aece819487ee3bf5dbedd2';
 const KEY='qima_auth';
-if(sessionStorage.getItem(KEY)===HASH){
-  document.getElementById('gate').style.display='none';
-  document.getElementById('main-content').style.display='block';
-}
+document.addEventListener('DOMContentLoaded',function(){
+  if(sessionStorage.getItem(KEY)===HASH){
+    document.getElementById('gate').style.display='none';
+    document.getElementById('main-content').style.display='block';
+  }
+});
 function unlock(){
   const val=document.getElementById('gate-input').value;
   sha256(val).then(h=>{
@@ -102,10 +105,11 @@ function unlock(){
 <div class="nav" id="nav"></div>
 <div id="panels"></div>
 <div style="background:#fff;border:1px solid #D3D1C7;border-radius:12px;padding:14px 18px;margin-top:12px">
-  <div style="font-size:10px;font-weight:500;color:#5F5E5A;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">RACI legend</div>
+  <div style="font-size:10px;font-weight:500;color:#5F5E5A;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">RASCI legend</div>
   <div style="display:flex;gap:16px;flex-wrap:wrap">
     <div style="display:flex;align-items:center;gap:7px;font-size:12px;color:#2C2C2A"><span style="display:inline-block;padding:2px 9px;border-radius:10px;font-size:11px;font-weight:500;background:#E6F1FB;color:#0C447C;border:1px solid #85B7EB">R</span> Responsible — does the work</div>
     <div style="display:flex;align-items:center;gap:7px;font-size:12px;color:#2C2C2A"><span style="display:inline-block;padding:2px 9px;border-radius:10px;font-size:11px;font-weight:500;background:#FAEEDA;color:#633806;border:1px solid #EF9F27">A</span> Accountable — owns the outcome</div>
+    <div style="display:flex;align-items:center;gap:7px;font-size:12px;color:#2C2C2A"><span style="display:inline-block;padding:2px 9px;border-radius:10px;font-size:11px;font-weight:500;background:#F3EAFB;color:#5B2D8E;border:1px solid #C49EE0">S</span> Support — assists execution</div>
     <div style="display:flex;align-items:center;gap:7px;font-size:12px;color:#2C2C2A"><span style="display:inline-block;padding:2px 9px;border-radius:10px;font-size:11px;font-weight:500;background:#EAF3DE;color:#27500A;border:1px solid #97C459">C</span> Consulted — input required</div>
     <div style="display:flex;align-items:center;gap:7px;font-size:12px;color:#2C2C2A"><span style="display:inline-block;padding:2px 9px;border-radius:10px;font-size:11px;font-weight:500;background:#F1EFE8;color:#444441;border:1px solid #D3D1C7">I</span> Informed — kept in the loop</div>
   </div>
@@ -121,17 +125,17 @@ const badge=l=>`<div style="font-size:11px;font-weight:500;color:#444441;text-al
 const BP=(l1,c1,l2,c2)=>`<div style="width:100%;border:1px solid #B4B2A9;border-radius:10px;padding:10px 8px 4px;background:#F1EFE8;margin:2px 0"><div style="display:flex;gap:0;align-items:flex-start"><div style="flex:1;border-right:1px dashed #B4B2A9;padding-right:6px;display:flex;flex-direction:column;align-items:center">${badge(l1)}${c1}</div><div style="flex:1;padding-left:6px;display:flex;flex-direction:column;align-items:center">${badge(l2)}${c2}</div></div></div>`;
 const BP3=(l1,c1,l2,c2,l3,c3)=>`<div style="width:100%;border:1px solid #B4B2A9;border-radius:10px;padding:10px 8px 4px;background:#F1EFE8;margin:2px 0"><div style="display:flex;gap:0;align-items:flex-start"><div style="flex:1;border-right:1px dashed #B4B2A9;padding-right:4px;display:flex;flex-direction:column;align-items:center">${badge(l1)}${c1}</div><div style="flex:1;border-right:1px dashed #B4B2A9;padding:0 4px;display:flex;flex-direction:column;align-items:center">${badge(l2)}${c2}</div><div style="flex:1;padding-left:4px;display:flex;flex-direction:column;align-items:center">${badge(l3)}${c3}</div></div></div>`;
 
-const R=(s,r='',a='',c='',i='')=>`<tr><td class="step-col">${s}</td><td>${r?`<span class="r-pill r-r">${r}</span>`:''}</td><td>${a?`<span class="r-pill r-a">${a}</span>`:''}</td><td>${c?`<span class="r-pill r-c">${c}</span>`:''}</td><td>${i?`<span class="r-pill r-i">${i}</span>`:''}</td></tr>`;
-const RACI=rows=>`<div class="rdivider"></div><div class="rsec-title">RACI breakdown</div><table class="rtable"><thead><tr><th>Step</th><th>Responsible</th><th>Accountable</th><th>Consulted</th><th>Informed</th></tr></thead><tbody>${rows}</tbody></table>`;
+const R=(s,r='',a='',sup='',c='',i='')=>`<tr><td class="step-col">${s}</td><td>${r?`<span class="r-pill r-r">${r}</span>`:''}</td><td>${a?`<span class="r-pill r-a">${a}</span>`:''}</td><td>${sup?`<span class="r-pill r-s">${sup}</span>`:''}</td><td>${c?`<span class="r-pill r-c">${c}</span>`:''}</td><td>${i?`<span class="r-pill r-i">${i}</span>`:''}</td></tr>`;
+const RACI=rows=>`<div class="rdivider"></div><div class="rsec-title">RASCI breakdown</div><table class="rtable"><thead><tr><th>Step</th><th>Responsible</th><th>Accountable</th><th>Support</th><th>Consulted</th><th>Informed</th></tr></thead><tbody>${rows}</tbody></table>`;
 const ph1=`${B('Technical Team','Check if GI exists in SSO','','#185FA5')}}${A()}${D('GI exists?')}<div style="display:flex;width:100%;gap:8px;align-items:flex-start"><div style="width:120px;flex-shrink:0;display:flex;flex-direction:column;align-items:center"><div style="font-size:10px;color:#5F5E5A;font-weight:500;margin:4px 0">Yes</div><div class="fbox" style="width:100%"><div class="frole">All Teams</div><div class="flabel">Use existing GI in SSO</div></div>${A()}<div style="background:#EAF3DE;border:1px solid #97C459;border-radius:16px;padding:6px 10px;text-align:center;width:100%"><div style="font-size:11px;font-weight:500;color:#27500A">Proceed to factory contact</div></div></div><div style="flex:1;display:flex;flex-direction:column;align-items:center"><div style="font-size:10px;color:#5F5E5A;font-weight:500;margin:4px 0">No — create new</div>${A()}<div style="width:100%;border:1px solid #B4B2A9;border-radius:10px;padding:12px 10px 10px;background:#F1EFE8;margin:2px 0"><div style="font-size:10px;font-weight:500;color:#5F5E5A;text-align:center;margin-bottom:10px;text-transform:uppercase;letter-spacing:.05em">Who drafts the new GI?</div><div style="display:flex;gap:0;align-items:flex-start"><div style="flex:1;border-right:1px dashed #B4B2A9;padding-right:8px;display:flex;flex-direction:column;align-items:center"><div style="font-size:11px;font-weight:500;color:#0C447C;text-align:center;margin-bottom:8px;padding:3px 8px;background:#E6F1FB;border-radius:20px;border:1px solid #85B7EB">MA team</div><div style="position:relative;width:110px;height:44px;margin:2px auto;flex-shrink:0"><svg width="110" height="44" style="position:absolute;inset:0;overflow:visible"><polygon points="55,2 107,22 55,42 3,22" fill="none" stroke="#EF9F27" stroke-width="2"/></svg><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:#2C2C2A;text-align:center;line-height:1.3">GI type?</div></div><div style="display:flex;width:100%;gap:4px;align-items:flex-start;margin-top:6px"><div style="flex:1"><div class="fbox" style="border-left:3px solid #185FA5;min-width:0;width:100%;padding:6px 8px"><div class="frole">Technical Team</div><div class="flabel" style="font-size:11px">Draft GI</div><div class="fsub">Report · Protocol</div></div></div><div style="flex:1"><div class="fbox" style="border-left:3px solid #3B6D11;min-width:0;width:100%;padding:6px 8px"><div class="frole">CSC Team</div><div class="flabel" style="font-size:11px">Draft GI</div><div class="fsub">Coordination · Booking</div></div></div></div>${A()}</div><div style="flex:1;padding-left:8px;display:flex;flex-direction:column;align-items:center"><div style="font-size:11px;font-weight:500;color:#27500A;text-align:center;margin-bottom:8px;padding:3px 8px;background:#EAF3DE;border-radius:20px;border:1px solid #97C459">EA team</div><div class="fbox" style="border-left:3px solid #3B6D11;width:100%;padding:6px 8px"><div class="frole">Technical Team (EA)</div><div class="flabel" style="font-size:11px">Drafts GI for ALL types</div><div class="fsub">Report · Protocol · Auditor · Coordination</div></div><div style="display:flex;align-items:flex-start;width:100%;gap:4px;margin-top:0"><div style="flex:1"></div><div class="farrow" style="margin:0"></div><div style="flex:1.6;border:1.5px dashed #EF9F27;border-radius:6px;padding:5px 6px;background:#FAEEDA;margin-top:2px"><div style="font-size:9px;font-weight:500;color:#633806;text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px">Risk note</div><div style="font-size:10px;color:#633806;line-height:1.4">CSC may update directly for easy requests, skipping back office notification</div></div></div></div></div></div>${A()}${B('Technical Team','Save as PDF and rename','{GI}type-Client-Team-Date')}${A()}<div class="fbox" style="border-left:3px solid #185FA5"><div class="frole">Manager</div><div class="flabel">Review and approve GI</div><div class="fsub">Team leader sign-off required</div></div>${A()}<div class="fbox" style="border-left:3px solid #854F0B"><div class="frole">Technical Team</div><div class="flabel">Send email to Support Team</div><div class="fsub">Attach approved GI PDF</div></div>${A()}${B('Support Team','Upload to SSO and sync to orders','Technical team has no SSO access')}${A()}${N('Support Team','Notify back office of updated GI','Required — must not be skipped')}${A()}${M('GI approved, uploaded and back office notified')}</div></div>`;
 
 const phases=[
 {n:1,l:'Order preparation with client',c:'#185FA5',raci:'Technical Team (R) · Manager (A) · Support Team (I)',sla:'',flow:ph1,
 raciTable:RACI(
-  R('Check / draft GI','Technical Team','Technical Team Manager','All Teams (Coordination · Protocol · Auditor · CSC)','') +
-  R('Review and approve GI','Technical Team Manager','Technical Team Manager','','Technical Team') +
-  R('Upload GI to SSO','Support Team','Technical Team Manager','','Back Office') +
-  R('Notify back office','Support Team','Technical Team Manager','','Back Office')
+  R('Check / draft GI','Technical Team','Technical Team Manager','Support Team','All Teams (Coordination · Protocol · Auditor · CSC)','') +
+  R('Review and approve GI','Technical Team Manager','Technical Team Manager','Technical Team','','Technical Team') +
+  R('Upload GI to SSO','Support Team','Technical Team Manager','Technical Team','','Back Office') +
+  R('Notify back office','Support Team','Technical Team Manager','Technical Team','','Back Office')
 )},
 
 {n:2,l:'First contact with factory for data gathering',c:'#854F0B',raci:'Coordination (R)',sla:'Reminders every 3 working days · 4 days max per cycle',
@@ -174,11 +178,11 @@ ${BP('Yes — responded',`
 `)}
 `,
 raciTable:RACI(
-  R('Send kick-off / announcement email','Coordination','Coordination','','Client / Supplier') +
-  R('1st–3rd reminder cycle','Coordination','Coordination','','Supplier') +
-  R('Client escalation (CC emails)','Coordination','Coordination','Sales / SIC','Client') +
-  R('Sales / SIC follow-up','Sales / SIC','Coordination','','') +
-  R('Change SSO to Waiting for Feedback','Coordination','Coordination','','Team Leader')
+  R('Send kick-off / announcement email','Coordination','Coordination','Protocol','','Client / Supplier') +
+  R('1st–3rd reminder cycle','Coordination','Coordination','Team Leader','','Supplier') +
+  R('Client escalation (CC emails)','Coordination','Coordination','Team Leader','Sales / SIC','Client') +
+  R('Sales / SIC follow-up','Sales / SIC','Coordination','Coordination','','') +
+  R('Change SSO to Waiting for Feedback','Coordination','Coordination','Support Team','','Team Leader')
 )},
 
 {n:3,l:'Order validation & confirmation of audit date with client',c:'#3B6D11',raci:'Protocol Team (R) · Coordination (C)',sla:'',
@@ -226,11 +230,11 @@ ${B('Protocol Team','Select sub-audit type and prepare documents','','#3B6D11')}
 ${A()}
 ${M('Order validated — proceed to allocation')}`,
 raciTable:RACI(
-  R('Send validation request to Protocol','Coordination','Coordination','Protocol Team','') +
-  R('Protocol escalation reminders','Coordination','Coordination','Protocol Team','Team Leader') +
-  R('Verify audit type, workers, factory','Protocol Team','Protocol Team','Coordination','') +
-  R('Validate / request more MD','Protocol Team','Protocol Team','Client','Coordination') +
-  R('Select sub-audit type and prep docs','Protocol Team','Protocol Team','','Coordination')
+  R('Send validation request to Protocol','Coordination','Coordination','Protocol Team','Protocol Team','') +
+  R('Protocol escalation reminders','Coordination','Coordination','Team Leader','Protocol Team','Team Leader') +
+  R('Verify audit type, workers, factory','Protocol Team','Protocol Team','Coordination','Coordination','') +
+  R('Validate / request more MD','Protocol Team','Protocol Team','Coordination','Client','Coordination') +
+  R('Select sub-audit type and prep docs','Protocol Team','Protocol Team','Coordination','','Coordination')
 )},
 
 {n:4,l:'Allocation & confirmation of audit date with supplier',c:'#534AB7',raci:'Coordination (R) · Support Team (C)',sla:'Stop allocation: x weeks before due date (varies by region) · Capacity escalation: x weeks before due date',
@@ -295,13 +299,13 @@ ${B('Coordination','Confirm final audit date with supplier','','#534AB7')}
 ${A()}
 ${M('Auditor allocated · supplier date confirmed')}`,
 raciTable:RACI(
-  R('Frozen date escalation to client','Coordination','Coordination','Client','Team Leader') +
-  R('Non-frozen date negotiation','Coordination','Coordination','Supplier','') +
-  R('Filter orders — Waiting Allocation','Coordination','Coordination','','') +
-  R('Select auditor(s)','Coordination','Coordination','','') +
-  R('Payment status management','Support Team','Support Team','','Coordination') +
-  R('Enter all fees in IRP','Coordination','Coordination','','Finance') +
-  R('Confirm final date with supplier','Coordination','Coordination','','Supplier')
+  R('Frozen date escalation to client','Coordination','Coordination','Support Team','Client','Team Leader') +
+  R('Non-frozen date negotiation','Coordination','Coordination','Auditor','Supplier','') +
+  R('Filter orders — Waiting Allocation','Coordination','Coordination','Support Team','','') +
+  R('Select auditor(s)','Coordination','Coordination','Team Leader','','') +
+  R('Payment status management','Support Team','Support Team','Coordination','','Coordination') +
+  R('Enter all fees in IRP','Coordination','Coordination','Finance','','Finance') +
+  R('Confirm final date with supplier','Coordination','Coordination','Auditor','','Supplier')
 )},
 
 {n:5,l:'Protocol preparation',c:'#993C1D',raci:'Protocol (R)',sla:'',
@@ -318,10 +322,10 @@ ${B('System','Auto-sends pack link to auditor','Directly via Auditor App')}
 ${A()}
 ${M('Protocol pack ready — auditor briefed')}`,
 raciTable:RACI(
-  R('Generate factory disclaimer','Protocol','Protocol','','Coordination') +
-  R('Assign checklist or create ZIP','Protocol','Protocol','','') +
-  R('Upload pack and mark IP Ready','Protocol','Protocol','','Coordination') +
-  R('Send pack to auditor','System / Protocol','Protocol','','Auditor')
+  R('Generate factory disclaimer','Protocol','Protocol','Coordination','','Coordination') +
+  R('Assign checklist or create ZIP','Protocol','Protocol','Auditor','','') +
+  R('Upload pack and mark IP Ready','Protocol','Protocol','Coordination','','Coordination') +
+  R('Send pack to auditor','System / Protocol','Protocol','Protocol','','Auditor')
 )},
 
 {n:6,l:'Audit execution',c:'#D85A30',raci:'Auditor (R)',sla:'CAPR submission: within x working days after audit',
@@ -344,11 +348,11 @@ ${B('Auditor','Closing meeting: CAP agreed with factory','')}
 ${A()}
 ${M('CAPR submitted to back office for review')}`,
 raciTable:RACI(
-  R('Preparation and opening meeting','Auditor','Auditor','','') +
-  R('Site tour and document review','Auditor','Auditor','','') +
-  R('Worker and management interviews','Auditor','Auditor','','') +
-  R('Draft findings and closing meeting','Auditor','Auditor','','Back Office') +
-  R('Submit CAPR','Auditor','Auditor','','Report Reviewer')
+  R('Preparation and opening meeting','Auditor','Auditor','Protocol','','') +
+  R('Site tour and document review','Auditor','Auditor','Protocol','','') +
+  R('Worker and management interviews','Auditor','Auditor','','','') +
+  R('Draft findings and closing meeting','Auditor','Auditor','Back Office','','Back Office') +
+  R('Submit CAPR','Auditor','Auditor','Back Office','','Report Reviewer')
 )},
 
 {n:7,l:'Report validation',c:'#378ADD',raci:'Report Reviewer (R)',sla:'',
@@ -369,10 +373,10 @@ ${BP('No',`${B('Reviewer','Send back to auditor','Via Teams and email')}<div sty
      'Yes',`${B('Reviewer','Leave release message in Teams','')}${A()}${B('Reviewer','Tag responsible owner','For specific client')}${A()}`)}
 ${M('Report released and owner tagged')}`,
 raciTable:RACI(
-  R('Assign reports to supervisors','Manager / Leader','Manager / Leader','','Reviewer') +
-  R('Claim and review report','Reviewer','Reviewer','','Auditor') +
-  R('Send back to auditor if incomplete','Reviewer','Reviewer','','Auditor') +
-  R('Release report and tag owner','Reviewer','Reviewer','','Client / Coordination')
+  R('Assign reports to supervisors','Manager / Leader','Manager / Leader','Back Office','','Reviewer') +
+  R('Claim and review report','Reviewer','Reviewer','Auditor','','Auditor') +
+  R('Send back to auditor if incomplete','Reviewer','Reviewer','Team Leader','','Auditor') +
+  R('Release report and tag owner','Reviewer','Reviewer','Coordination','','Client / Coordination')
 )},
 
 {n:8,l:'Report send to client / upload to client system',c:'#0F6E56',raci:'TBC (R) · Report Reviewer (A)',sla:'CAP TAT: per client GI (~30 days) · Max 3 submissions or 90 days',
@@ -399,11 +403,11 @@ ${B('Reviewer','Update SSO and notify client','','#0F6E56')}
 ${A()}
 ${M('Audit closed — order status: Finished')}`,
 raciTable:RACI(
-  R('Send final report to client','TBC','Reviewer','','Client') +
-  R('Issue CAP to supplier','Auditor','Reviewer','','Supplier') +
-  R('Review CAP evidence','Reviewer','Reviewer','','Supplier') +
-  R('Full CAP desktop review','Reviewer','Reviewer','','Coordination') +
-  R('Update SSO and notify client','Reviewer','Reviewer','','Client / Coordination')
+  R('Send final report to client','TBC','Reviewer','Coordination','','Client') +
+  R('Issue CAP to supplier','Auditor','Reviewer','Coordination','','Supplier') +
+  R('Review CAP evidence','Reviewer','Reviewer','Auditor','','Supplier') +
+  R('Full CAP desktop review','Reviewer','Reviewer','Auditor','','Coordination') +
+  R('Update SSO and notify client','Reviewer','Reviewer','Support Team','','Client / Coordination')
 )}
 ];
 
