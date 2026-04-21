@@ -132,7 +132,7 @@ const ph1=`${B('Technical Team','Check if GI exists in SSO','','#185FA5')}}${A()
 const phases=[
 {n:1,l:'Order preparation with client',c:'#185FA5',raci:'Technical Team (R) · Manager (A) · Support Team (I)',sla:'',flow:ph1,
 raciTable:RACI(
-  R('Check / draft GI','Technical Team','Technical Team Manager','Support Team','All Teams (Coordination · Protocol · Auditor · CSC)','') +
+  R('Check / draft GI','Technical Team','Technical Team Manager','','All Teams (Coordination · Protocol · Auditor · CSC)','') +
   R('Review and approve GI','Technical Team Manager','Technical Team Manager','Technical Team','','Technical Team') +
   R('Upload GI to SSO','Support Team','Technical Team Manager','Technical Team','','Back Office') +
   R('Notify back office','Support Team','Technical Team Manager','Technical Team','','Back Office')
@@ -178,10 +178,10 @@ ${BP('Yes — responded',`
 `)}
 `,
 raciTable:RACI(
-  R('Send kick-off / announcement email','Coordination','Coordination','Protocol','','Client / Supplier') +
-  R('1st–3rd reminder cycle','Coordination','Coordination','Team Leader','','Supplier') +
-  R('Client escalation (CC emails)','Coordination','Coordination','Team Leader','Sales / SIC','Client') +
-  R('Sales / SIC follow-up','Sales / SIC','Coordination','Coordination','','') +
+  R('Send kick-off / announcement email','Coordination','Coordination','','','Client / Supplier') +
+  R('1st–3rd reminder cycle','Coordination','Coordination','','','Supplier') +
+  R('Client escalation (CC emails)','Coordination','Coordination','','Sales / SIC','Client') +
+  R('Sales / SIC follow-up','Sales / SIC','Coordination','','','') +
   R('Change SSO to Waiting for Feedback','Coordination','Coordination','Support Team','','Team Leader')
 )},
 
@@ -230,11 +230,11 @@ ${B('Protocol Team','Select sub-audit type and prepare documents','','#3B6D11')}
 ${A()}
 ${M('Order validated — proceed to allocation')}`,
 raciTable:RACI(
-  R('Send validation request to Protocol','Coordination','Coordination','Protocol Team','Protocol Team','') +
+  R('Send validation request to Protocol','Coordination','Coordination','','Protocol Team','') +
   R('Protocol escalation reminders','Coordination','Coordination','Team Leader','Protocol Team','Team Leader') +
-  R('Verify audit type, workers, factory','Protocol Team','Protocol Team','Coordination','Coordination','') +
+  R('Verify audit type, workers, factory','Protocol Team','Protocol Team','','Coordination','') +
   R('Validate / request more MD','Protocol Team','Protocol Team','Coordination','Client','Coordination') +
-  R('Select sub-audit type and prep docs','Protocol Team','Protocol Team','Coordination','','Coordination')
+  R('Select sub-audit type and prep docs','Protocol Team','Protocol Team','','','Coordination')
 )},
 
 {n:4,l:'Allocation & confirmation of audit date with supplier',c:'#534AB7',raci:'Coordination (R) · Support Team (C)',sla:'Stop allocation: x weeks before due date (varies by region) · Capacity escalation: x weeks before due date',
@@ -272,6 +272,18 @@ ${A()}
       ${A()}
       <div class="fbox" style="border-left:3px solid #993C1D;width:100%;padding:6px 8px"><div class="frole">Support Team</div><div class="flabel" style="font-size:11px">Monitor payment status</div><div class="fsub">Change status once payment received</div></div>
       ${A()}
+      <div style="position:relative;width:100%;height:44px;flex-shrink:0"><svg width="100%" height="44" style="position:absolute;inset:0;overflow:visible"><polygon points="50%,2 98%,22 50%,42 2%,22" fill="none" stroke="#EF9F27" stroke-width="2"/></svg><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:500;color:#2C2C2A;padding:0 20px;text-align:center;line-height:1.3">3 wks before audit — payment received?</div></div>
+      ${A()}
+      <div style="width:100%;border:1px solid #F0997B;border-radius:8px;padding:8px 6px 6px;background:#FAECE7;margin:2px 0">
+        <div style="font-size:9px;font-weight:500;color:#712B13;text-align:center;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">No — exception</div>
+        <div class="fbox" style="border-left:3px solid #A32D2D;width:100%;padding:5px 7px;margin-bottom:0"><div class="frole" style="color:#A32D2D">TBC</div><div class="flabel" style="font-size:10px">Inform audit site &amp; client</div><div class="fsub">Notify of pending payment risk</div></div>
+        ${A()}
+        <div style="position:relative;width:100%;height:38px;flex-shrink:0"><svg width="100%" height="38" style="position:absolute;inset:0;overflow:visible"><polygon points="50%,2 98%,19 50%,36 2%,19" fill="none" stroke="#EF9F27" stroke-width="1.5"/></svg><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:500;color:#2C2C2A;padding:0 14px;text-align:center;line-height:1.2">Reply received?</div></div>
+        ${A()}
+        <div class="fbox" style="border-left:3px solid #A32D2D;width:100%;padding:5px 7px"><div class="frole" style="color:#A32D2D">TBC</div><div class="flabel" style="font-size:10px">Postpone to next available date</div><div class="fsub">If no reply received</div></div>
+        ${A()}
+      </div>
+      <div style="font-size:9px;color:#27500A;text-align:center;margin:4px 0;font-weight:500">Yes — payment received ↓</div>
       <div class="fbox" style="border-left:3px solid #993C1D;width:100%;padding:6px 8px"><div class="frole">Support Team</div><div class="flabel" style="font-size:11px">Update SSO → Waiting for Allocation</div><div class="fsub">Coordination now has visibility to proceed</div></div>
       ${A()}
     </div>
@@ -303,8 +315,10 @@ raciTable:RACI(
   R('Non-frozen date negotiation','Coordination','Coordination','Auditor','Supplier','') +
   R('Filter orders — Waiting Allocation','Coordination','Coordination','Support Team','','') +
   R('Select auditor(s)','Coordination','Coordination','Team Leader','','') +
-  R('Payment status management','Support Team','Support Team','Coordination','','Coordination') +
-  R('Enter all fees in IRP','Coordination','Coordination','Finance','','Finance') +
+  R('Payment status management','Support Team','Support Team','','','Coordination') +
+  R('3-wk exception: inform site &amp; client','TBC','TBC','Coordination','','Client / Audit Site') +
+  R('3-wk exception: postpone audit date','TBC','TBC','Coordination','','Client / Audit Site / Auditor') +
+  R('Enter all fees in IRP','Coordination','Coordination','','','Finance') +
   R('Confirm final date with supplier','Coordination','Coordination','Auditor','','Supplier')
 )},
 
@@ -324,8 +338,8 @@ ${M('Protocol pack ready — auditor briefed')}`,
 raciTable:RACI(
   R('Generate factory disclaimer','Protocol','Protocol','Coordination','','Coordination') +
   R('Assign checklist or create ZIP','Protocol','Protocol','Auditor','','') +
-  R('Upload pack and mark IP Ready','Protocol','Protocol','Coordination','','Coordination') +
-  R('Send pack to auditor','System / Protocol','Protocol','Protocol','','Auditor')
+  R('Upload pack and mark IP Ready','Protocol','Protocol','','','Coordination') +
+  R('Send pack to auditor','System / Protocol','Protocol','','','Auditor')
 )},
 
 {n:6,l:'Audit execution',c:'#D85A30',raci:'Auditor (R)',sla:'CAPR submission: within x working days after audit',
@@ -351,7 +365,7 @@ raciTable:RACI(
   R('Preparation and opening meeting','Auditor','Auditor','Protocol','','') +
   R('Site tour and document review','Auditor','Auditor','Protocol','','') +
   R('Worker and management interviews','Auditor','Auditor','','','') +
-  R('Draft findings and closing meeting','Auditor','Auditor','Back Office','','Back Office') +
+  R('Draft findings and closing meeting','Auditor','Auditor','','','Back Office') +
   R('Submit CAPR','Auditor','Auditor','Back Office','','Report Reviewer')
 )},
 
@@ -373,7 +387,7 @@ ${BP('No',`${B('Reviewer','Send back to auditor','Via Teams and email')}<div sty
      'Yes',`${B('Reviewer','Leave release message in Teams','')}${A()}${B('Reviewer','Tag responsible owner','For specific client')}${A()}`)}
 ${M('Report released and owner tagged')}`,
 raciTable:RACI(
-  R('Assign reports to supervisors','Manager / Leader','Manager / Leader','Back Office','','Reviewer') +
+  R('Assign reports to supervisors','Manager / Leader','Manager / Leader','','','Reviewer') +
   R('Claim and review report','Reviewer','Reviewer','Auditor','','Auditor') +
   R('Send back to auditor if incomplete','Reviewer','Reviewer','Team Leader','','Auditor') +
   R('Release report and tag owner','Reviewer','Reviewer','Coordination','','Client / Coordination')
